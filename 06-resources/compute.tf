@@ -1,6 +1,6 @@
 resource "aws_instance" "main_web" {
   # AMI ID for Amazon Linux 2 in us-east-1
-  ami                         = "ami-055744c75048d8296"
+  ami = "ami-055744c75048d8296"
   # AMI ID for NGNIX -Bitnami in us-east-1
   # ami                         = "ami-01e8e2269458f4b3c"
   instance_type               = "t3.micro"
@@ -19,10 +19,10 @@ resource "aws_instance" "main_web" {
       Name = "main_web_instance"
     }
   )
-# Create before destroy to avoid downtime during instance replacement and ignore tag changes
+  # Create before destroy to avoid downtime during instance replacement and ignore tag changes
   lifecycle {
     create_before_destroy = true
-    ignore_changes = [ tags ]
+    ignore_changes        = [tags]
   }
 
 }
