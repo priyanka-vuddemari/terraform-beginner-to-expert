@@ -19,9 +19,10 @@ resource "aws_instance" "main_web" {
       Name = "main_web_instance"
     }
   )
-# Create before destroy to avoid downtime during instance replacement
+# Create before destroy to avoid downtime during instance replacement and ignore tag changes
   lifecycle {
     create_before_destroy = true
+    ignore_changes = [ tags ]
   }
 
 }
