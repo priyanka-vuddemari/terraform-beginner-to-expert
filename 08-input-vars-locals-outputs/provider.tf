@@ -1,0 +1,15 @@
+terraform {
+  //TODO : check why ~> 1.7.0 is not working here
+  required_version = "~> 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+  # region = var.aws_region
+}
