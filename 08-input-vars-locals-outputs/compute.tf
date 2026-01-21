@@ -22,8 +22,18 @@ resource "aws_instance" "compute" {
   associate_public_ip_address = true
 
   root_block_device {
-    volume_size           = var.ec2_volume_size
-    volume_type           = var.ec2_volume_type
+    # volume_size           = var.ec2_volume_size
+    # volume_type           = var.ec2_volume_type
+    // instead of above 2 variables, we can use the object variable
+    volume_size           = var.ec2_volume.size
+    volume_type           = var.ec2_volume.type
     delete_on_termination = true
   }
+
+  tags = merge(
+    {
+      Name = "Terraform-Compute-Instance"
+    },
+    var.addtional_tags,
+  )
 }

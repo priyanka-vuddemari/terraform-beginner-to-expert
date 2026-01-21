@@ -12,10 +12,29 @@ variable "ec2_instance_type" {
   }
 }
 
-variable "ec2_volume_size" {
-  type = number
+# variable "ec2_volume_size" {
+#   type = number
+# }
+
+# variable "ec2_volume_type" {
+#   type = string
+# }
+
+// instead of uncommenting above 2 variables, we can create a type of object
+variable "ec2_volume" {
+  type = object({
+    size = number
+    type = string
+  })
+  description = "The size and type of the ec2 block volume for Ec2 instances"
+  default = {
+    size = 8
+    type = "gp3"
+  }
 }
 
-variable "ec2_volume_type" {
-  type = string
+variable "addtional_tags" {
+  type        = map(string)
+  description = "Additional tags to add to all resources"
+  default     = {}
 }
