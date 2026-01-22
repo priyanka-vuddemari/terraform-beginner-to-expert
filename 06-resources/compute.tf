@@ -3,7 +3,7 @@ resource "aws_instance" "main_web" {
   ami = "ami-055744c75048d8296"
   # AMI ID for NGNIX -Bitnami in us-east-1
   # ami                         = "ami-01e8e2269458f4b3c"
-  instance_type               = "t3.micro"
+  instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.main_public_subnet.id
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.main_web_public_sg.id]

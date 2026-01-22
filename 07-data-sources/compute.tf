@@ -63,7 +63,7 @@ output "aws_availability_zones" {
   value = data.aws_availability_zones.available.names
 }
 
-output "iam_policy"{
+output "iam_policy" {
   value = data.aws_iam_policy_document.static_website_policy.json
 }
 
