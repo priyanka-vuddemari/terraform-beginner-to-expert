@@ -31,9 +31,7 @@ resource "aws_instance" "compute" {
   }
 
   tags = merge(
-    {
-      Name = "Terraform-Compute-Instance"
-    },
+    local.common_tags,
     var.addtional_tags,
   )
 }
