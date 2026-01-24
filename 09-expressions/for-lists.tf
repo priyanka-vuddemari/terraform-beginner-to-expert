@@ -1,8 +1,8 @@
 locals {
   double_numbers  = [for num in var.numbers_list : num * 2]
   even_numbers    = [for num in var.numbers_list : num if num % 2 == 0]
-  first_name_list = [for person in var.maps_list : person.firstname]
-  full_name_list  = [for person in var.maps_list : "${person.firstname} ${person.lastname}"]
+  first_name_list = [for person in var.objects_list : person.firstname]
+  full_name_list  = [for person in var.objects_list : "${person.firstname} ${person.lastname}"]
 }
 
 output "doubled_numbers" {
