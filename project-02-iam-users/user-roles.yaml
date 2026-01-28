@@ -1,0 +1,17 @@
+# user is array of objects.  schema is as follows:
+# user {
+#   username : string
+#   roles : array of strings []
+#}[]
+#
+#
+#
+
+
+users :
+- username: alice
+  roles: [readonly, developer]
+- username: bob
+  roles: [admin, auditor]
+- username: charlie
+  roles: [readonly]
