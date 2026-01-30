@@ -27,14 +27,24 @@ locals {
   ])
 }
 
+/*
+we must iterate over exisitng roles and create different assume role policy for each role
+in each policy , under identifiers we must specify only the users that have the permission to assume the role
 
+*/
+
+data "aws_caller_identity" "current" {}
 data "aws_iam_policy_document" "assume_role_policy" {
+  for_each = toset(keys(local.role_policies))
   statement {
     actions = ["sts:AssumeRole"]
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [
+        for user in local.users_from_yaml : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user.username}"
+        if contains(user.roles, each.key)
+      ]
     }
   }
 }
@@ -42,7 +52,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 resource "aws_iam_role" "roles" {
   for_each           = toset(keys(local.role_policies))
   name               = each.key
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy[each.value].json
 
 }
 

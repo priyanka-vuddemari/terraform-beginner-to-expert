@@ -1,5 +1,8 @@
 locals {
   users_from_yaml = yamldecode(file("${path.module}/user-roles.yaml")).users
+  users_map = {
+    for user in local.users_from_yaml : user.username => user.roles...
+  }
 }
 
 resource "aws_iam_user" "users" {
@@ -29,4 +32,8 @@ resource "aws_iam_user_login_profile" "users_profile" {
 output "passwords" {
   sensitive = true
   value     = { for user, profile in aws_iam_user_login_profile.users_profile : user => profile.password }
+}
+output "users_map" {
+  value = local.users_map
+  
 }
